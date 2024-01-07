@@ -82,6 +82,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+CHATTERBOT = {
+    'name': 'EmotionalIntelligent',
+    'logic_adapters':[
+        'chatterbot.logic.MathematicalEvaluation',
+        'chatterbot.logic.TimeLogicAdapter',
+        'chatterbot.logic.BestMatch'
+    ]
+}
 
 
 # Password validation
