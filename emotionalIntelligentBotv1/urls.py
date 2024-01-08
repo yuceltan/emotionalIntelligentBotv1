@@ -1,8 +1,11 @@
+from django.http import HttpRequest
+from django.http import HttpResponse
+from django.urls import path,include
 from django.contrib import admin
-from django.urls import path , include
-from .views import view_app
-
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    path("index/",view_app,)
+    path(r'C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\emotionalBot', include('emotionalBot.urls')),
+
+
 ]
