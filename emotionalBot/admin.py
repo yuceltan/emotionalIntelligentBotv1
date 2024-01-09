@@ -1,3 +1,4 @@
 from django.contrib import admin
+from emotionalBot.models import TrainData
 
-# Register your models here.
+admin.site.register(TrainData)
