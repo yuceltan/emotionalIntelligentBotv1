@@ -83,11 +83,11 @@ DATABASES = {
     }
 }
 CHATTERBOT = {
-    'name': 'EmotionalIntelligent',
+    'name': 'EmotionalIntelligent', #name of the bot is defined on this line
     'logic_adapters':[
         'chatterbot.logic.MathematicalEvaluation',
         'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch'
+        'chatterbot.logic.BestMatch' #search algorithm
     ]
 }
 

@@ -1,6 +1,10 @@
 from django.apps import AppConfig
+from chatterbot import chatterbot
 
-
-class EmotionalbotConfig(AppConfig):
+class EmotionalBotConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'emotionalBot'
+
+
+
+
