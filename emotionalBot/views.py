@@ -12,9 +12,10 @@ from models import TrainData
 import json
 
 
-def view_app(request):
+class
+"""def view_app(request):
     return render(request,
-                  r'C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\index.html')
+                  r'C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html')
 
     # HttpResponse does not render the index.html from views.py
 
@@ -30,7 +31,7 @@ def train_chat_Data(request):
 
 def get_back_messages(request):
     old_messages = TrainData.objects.all()
-    return render(request, r'template/oldMessages.html',{'oldMessages':old_messages})
+    return render(request, r'template/oldMessages.html',{'oldMessages':old_messages})"""
 """class BotChat(View):
     emotionalBot = ChatBot(settings.CHATTERBOT_SETTINGS)
 
