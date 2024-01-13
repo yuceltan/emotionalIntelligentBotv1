@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+from distutils.command.config import config
 from pathlib import Path
+from decouple import config
+
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,10 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'chatterbot.ext.django_chatterbot',
-    'daphne',
-    'chat',
+    'tailwind',
+
 
 
 ]
@@ -74,6 +79,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'emotionalIntelligentBotv1.wsgi.application'
+ASGI_APPLICATION = "emotionalIntelligentBotv1.asgi.application"
+TAILWIND_APP_NAME = "theme"
 
 
 # Database
@@ -92,6 +99,16 @@ CHATTERBOT = {
         'chatterbot.logic.TimeLogicAdapter',
         'chatterbot.logic.BestMatch' #search algorithm
     ]
+}
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [config("REDIS_BACKEND")]
+        },
+    },
+
 }
 
 

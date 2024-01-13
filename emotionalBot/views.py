@@ -3,19 +3,30 @@ from django.http import HttpRequest
 from django.http import JsonResponse
 from chatterbot import ChatBot
 from django.http import HttpResponse
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from chatterbot.ext.django_chatterbot import settings
 from requests import request
 import response
-from models import TrainData
+"""from models import TrainData"""
 
 import json
 
 
-class
+class ViewApp(TemplateView):
+    template = r"C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html"
+
+#class Home(View):
+    #template_name = "C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html"
+    #def get(self,request):
+        #return HttpResponse('C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html')
+
+    #def post(self,request):
+        #return HttpResponse("Class based view")
+
+
 """def view_app(request):
     return render(request,
-                  r'C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html')
+                  '')
 
     # HttpResponse does not render the index.html from views.py
 
