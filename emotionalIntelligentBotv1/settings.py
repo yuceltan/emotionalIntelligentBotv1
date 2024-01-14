@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from distutils.command.config import config
 from pathlib import Path
 from decouple import config
-
+from emotionalIntelligentBotv1.routing import application
 
 
 
@@ -79,7 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'emotionalIntelligentBotv1.wsgi.application'
-ASGI_APPLICATION = "emotionalIntelligentBotv1.asgi.application"
+ASGI_APPLICATION = "emotionalIntelligentBotv1.routing.application"
 TAILWIND_APP_NAME = "theme"
 
 
