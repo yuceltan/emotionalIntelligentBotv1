@@ -1,8 +1,9 @@
-{% comment %} templates/frontEnd/emotionalbot.html{% endcomment %}
-{% extends 'index.html' %} {% block body %}
+{% extends 'base.html' %} {% block body %}
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
 <div class="p-6 w-[800px]">
-    <h1 class="text -3x1 tracking-tight font-light" id = "chat-header"></h1>
-    <div
+  <h1 class="text-3xl tracking-tight font-light" id="chat-header"></h1>
+  <div
     id="chat-log"
     class="mt-4 w-full relative p-6 overflow-y-auto h-[30rem] bg-gray-50 border border-gray-200"
   ></div>
@@ -22,7 +23,7 @@
     </button>
   </div>
 </div>
-</div>
+
 {% endblock %}
 {% block scripts %}
 <script>

@@ -9,14 +9,17 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+import os
 from distutils.command.config import config
 from pathlib import Path
 from decouple import config
-from emotionalIntelligentBotv1.routing import application
+
 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from django.views import static
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -35,15 +38,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'daphne',
     'django.contrib.staticfiles',
     'chatterbot.ext.django_chatterbot',
     'tailwind',
+    'emotionalIntelligentBotv1',
+    'theme'
+
 
 
 
@@ -78,20 +84,22 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'emotionalIntelligentBotv1.wsgi.application'
-ASGI_APPLICATION = "emotionalIntelligentBotv1.routing.application"
-TAILWIND_APP_NAME = "theme"
+ASGI_APPLICATION = "emotionalIntelligentBotv1.asgi.application"
+
+
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}"""
 CHATTERBOT = {
     'name': 'EmotionalIntelligent', #name of the bot is defined on this line
     'logic_adapters':[
@@ -132,6 +140,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -149,6 +160,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
