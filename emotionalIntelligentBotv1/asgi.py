@@ -21,12 +21,12 @@ from channels.routing import get_default_application
 import emotionalIntelligentBotv1.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','emotionalIntelligentBotv1.settings')
-application = get_asgi_application()
+
 django.setup()
-app = ProtocolTypeRouter(
+application = ProtocolTypeRouter(
     {
 
-        "http": application,
+        "http": get_asgi_application(),
         "websocket": AllowedHostsOriginValidator(AuthMiddlewareStack(URLRouter(emotionalIntelligentBotv1.routing.url_patterns_socket))
                                                  ),
     }
