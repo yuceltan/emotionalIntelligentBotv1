@@ -6,22 +6,27 @@ from channels.generic.websocket import WebsocketConsumer
 
 
 class UserConsumer(WebsocketConsumer):
-    async def connect(self):
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        self.room_group_name = 'chat_%s' % self.room_name
-
-        await self.channel_layer.group_add(
-            self.room_group_name,
+    def receive(self, text_data):
+        text_data_json = json.loads(text_data)
+        async_to_sync(self.channel_layer.send)(
             self.channel_name,
+            {
+                "type":"chat_message",
+                "text":{"msg": text_data_json["text"],"source":"user"},
+
+            },
         )
+        async_to_sync(self.channel_layer.send)(
+            self.channel_name,
+            {
+                "type": "chat.message",
+                "text": {"msg":"Welcome Yuceltan","source": "bot"}
 
-        await self.accept()
-
-    async def disconnect(self, code):
-        await self.channel_layer.group_discard(
-            self.room_group_name,
-            self.channel_name,)
-
+            },
+        )
+    def chat_message(self,event):
+        text = event["text"]
+        self.send(text_data= json.dumps({"text": text}))
 
 
 

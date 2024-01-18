@@ -9,16 +9,20 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 
 import os
 
+import django
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator
 from decouple import config
+from channels.routing import get_default_application
+
 
 import emotionalIntelligentBotv1.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','emotionalIntelligentBotv1.settings')
 application = get_asgi_application()
+django.setup()
 app = ProtocolTypeRouter(
     {
 

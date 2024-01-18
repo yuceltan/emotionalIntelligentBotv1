@@ -13,7 +13,7 @@ import json
 
 
 class ViewApp(TemplateView):
-    template = r"C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\theme\templates\base.html"
+    template_name = 'chat.html'
 
 #class Home(View):
     #template_name = "C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html"
