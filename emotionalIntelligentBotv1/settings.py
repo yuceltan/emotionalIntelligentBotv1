@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'emotionalBot',
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     'tailwind',
     'emotionalIntelligentBotv1',
     'theme'
+
 
 
 
@@ -105,7 +107,7 @@ CHATTERBOT = {
     'logic_adapters':[
         'chatterbot.logic.MathematicalEvaluation',
         'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch' #search algorithm
+        'chatterbot.logic.BestMatch' #match algorithm
     ]
 }
 
