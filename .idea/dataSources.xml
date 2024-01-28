@@ -8,5 +8,14 @@
       <jdbc-url>jdbc:sqlite:C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Django default" uuid="482a64f8-9e63-48f8-a553-d716f91b3070">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/emotionalIntelligentBotv1/settings.py</remarks>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\db.sqlite3</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

@@ -8,19 +8,25 @@ from emotionalBot.models import TrainData
 #from spacy.cli.download import download
 #download(model="en_core_web_sm")
 
+
+
 class Command(BaseCommand):
     data = "TEST"
 
     def handle(self, *args, **options):
-        nlp = spacy.load("en_core_web_sm")
-        import en_core_web_sm
-        nlp = en_core_web_sm.load()
-        doc = nlp("This is a sentence.")
+
 
         chatterbot = ChatBot(**settings.CHATTERBOT_SETTINGS)
         tutor = ListTrainer(chatterbot)
         tutor.train(
-            "chatterbot.corpus.english.greetings"
-
+           [
+               "Hello",
+               "Hi there!",
+               "How are you doing?",
+               "I'm doing great.",
+               "That is good to hear",
+               "Thank you.",
+               "You're welcome.",
+           ]
                     )
         self.stdout.write(self.style.SUCCESS("Training Successfully Completed "))
