@@ -1,9 +1,10 @@
 from django.db import models
 
 
-class TrainData(models.Model):
-    statement_text = models.TextField()
+class Statement(models.Model):
+    text = models.TextField()
+    response = models.TextField()
 
     def __str__(self):
-        return self.statement_text
+        return self.text
 

@@ -16,7 +16,7 @@ def get_response(channel_name, input_data):
     async_to_sync(channels.send)(
         channel_name,
         {
-            "type": "chat.message",
+            "type": "chat_message",
             "text": {"msg": response_data["text"], "source": "bot"},
 
         },

@@ -4,5 +4,11 @@
     <mapping uuid="e914096a-18ad-4de9-848a-95d0ea06b904" name="@localhost Mapping">
       <data-sources db="2955acae-471c-4302-b1cd-7d23e56b24e5" />
     </mapping>
+    <mapping uuid="3a32bdb8-c3ad-492b-b704-6d504928d157" name="localhost:27017   Mapping">
+      <data-sources db="b52d431b-6bd9-426c-8b64-294d1169dec7" />
+      <scope>
+        <node kind="schema" qname="conversationData" />
+      </scope>
+    </mapping>
   </component>
 </project>

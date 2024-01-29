@@ -4,11 +4,10 @@ from channels.generic.websocket import WebsocketConsumer
 from emotionalBot.botApp import get_response
 
 
-
 class UserConsumer(WebsocketConsumer):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        get_response.delay(self.channel_name,text_data_json)
+        get_response.delay(self.channel_name, text_data_json)
         async_to_sync(self.channel_layer.send)(
             self.channel_name,
             {

@@ -11,9 +11,14 @@ import response
 
 import json
 
+from emotionalIntelligentBotv1.task import add
+
+result = add.delay(4, 4)
 
 class ViewApp(TemplateView):
     template_name = 'chat.html'
+
+
 
 #class Home(View):
     #template_name = "C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\templates\frontEnd\emotionalbot.html"

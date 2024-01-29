@@ -99,10 +99,13 @@ NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
+        }
     }
-}
+
 CHATTERBOT = {
+    'storage_adapter': 'chatterbot.storage.MongoDatabaseAdapter',
+    'database_uri': 'mongodb://localhost:27017/statements',
     'name': 'EmotionalIntelligent', #name of the bot is defined on this line
     'logic_adapters':[
         'chatterbot.logic.MathematicalEvaluation',
@@ -115,12 +118,14 @@ CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels_redis.core.RedisChannelLayer",
         "CONFIG": {
-            "hosts": [config('REDIS_BACKEND')]
+            "hosts": ["redis://localhost:6379/0"]
         },
     },
 
 }
-
+# Celery Configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

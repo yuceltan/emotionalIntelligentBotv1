@@ -8,6 +8,6 @@ from .user import UserConsumer  # user class is created by myself
 from .user import UserConsumer
 
 url_patterns_socket = [
-    re_path(r'ws/chat/$', user.UserConsumer.as_asgi()),
+    re_path(r'^ws/chat/$', user.UserConsumer.as_asgi()),
 
 ]
