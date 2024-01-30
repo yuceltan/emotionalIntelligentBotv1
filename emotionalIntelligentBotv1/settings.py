@@ -98,14 +98,15 @@ NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",
+        'ENGINE': 'djongo',
+
+        'NAME': 'conversationData',
         }
     }
 
 CHATTERBOT = {
-    'storage_adapter': 'chatterbot.storage.MongoDatabaseAdapter',
-    'database_uri': 'mongodb://localhost:27017/statements',
+    'storage_adapter': 'chatterbot.storage.DjangoStorageAdapter',
+    'database_uri': 'default',
     'name': 'EmotionalIntelligent', #name of the bot is defined on this line
     'logic_adapters':[
         'chatterbot.logic.MathematicalEvaluation',
