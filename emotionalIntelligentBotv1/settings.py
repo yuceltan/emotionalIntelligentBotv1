@@ -14,14 +14,10 @@ from distutils.command.config import config
 from pathlib import Path
 from decouple import config
 
-
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.views import static
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -33,7 +29,6 @@ SECRET_KEY = 'django-insecure-5n-6*5ox#8$t+0lm3w9(in&_xr)w!+*ec0a#38-8lka5-6e8)l
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -50,10 +45,6 @@ INSTALLED_APPS = [
     'tailwind',
     'emotionalIntelligentBotv1',
     'theme'
-
-
-
-
 
 ]
 
@@ -88,30 +79,32 @@ TEMPLATES = [
 
 ASGI_APPLICATION = "emotionalIntelligentBotv1.asgi.application"
 
-
 TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
+        'NAME': 'emotionalData',
+        'HOST' : 'localhost',
+        'PORT': 27017,
 
-        'NAME': 'conversationData',
-        }
+
     }
 
+}
+
+
 CHATTERBOT = {
-    'storage_adapter': 'chatterbot.storage.DjangoStorageAdapter',
-    'database_uri': 'default',
-    'name': 'EmotionalIntelligent', #name of the bot is defined on this line
-    'logic_adapters':[
+    'storage_adapter': 'chatterbot.storage.MongoDatabaseAdapter',
+    'database_uri': 'mongodb://localhost:27017/emotionalData',
+    'name': 'EmotionalIntelligent',  # name of the bot is defined on this line
+    'logic_adapters': [
         'chatterbot.logic.MathematicalEvaluation',
         'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch' #match algorithm
+        'chatterbot.logic.BestMatch'  # match algorithm
     ]
 }
 
@@ -146,7 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -163,13 +155,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'theme/static/')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

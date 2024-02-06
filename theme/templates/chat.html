@@ -27,7 +27,7 @@
 {% endblock %}
 {% block scripts %}
 <script>
-  var wss_protocol = window.location.protocol == "https:" ? "wss://" : "ws://";
+  var wss_protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
   var chatSocket = new WebSocket(
     wss_protocol + window.location.host + "/ws/chat/"
   );
@@ -46,11 +46,11 @@
     var str = '<ul class="space-y-2">';
     messages.forEach(function (msg) {
       str += `<li class="flex ${
-        msg.source == "bot" ? "justify-start" : "justify-end"
+        msg.source === "bot" ? "justify-start" : "justify-end"
       }">
       <div class="relative max-w-xl px-4 py-2 rounded-lg shadow-md
         ${
-          msg.source == "bot"
+          msg.source === "bot"
             ? "text-gray-700 bg-white border border-gray-200"
             : "bg-blue-600 text-white"
         }">

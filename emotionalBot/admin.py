@@ -1,4 +1,11 @@
+import json
 from django.contrib import admin
-from emotionalBot.models import Statement
+from django import forms
+from .models import Statement
 
-admin.site.register(Statement)
+class StatementAdmin(admin.ModelAdmin):
+    list_display = ('text',)
+
+
+
+admin.site.register(Statement, StatementAdmin)

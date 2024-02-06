@@ -4,16 +4,19 @@ from django.http import JsonResponse
 from chatterbot import ChatBot
 from django.http import HttpResponse
 from django.views.generic import View, TemplateView
+from django.core.serializers import serialize
 from chatterbot.ext.django_chatterbot import settings
 from requests import request
 import response
-"""from models import TrainData"""
+#from emotionalBot.models import Statement
+
+"""from models import TrainData""" #old name of the training data without corpus
 
 import json
 
 from emotionalIntelligentBotv1.task import add
 
-result = add.delay(4, 4)
+
 
 class ViewApp(TemplateView):
     template_name = 'chat.html'
