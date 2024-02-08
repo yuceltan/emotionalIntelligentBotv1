@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 import emotionalBot
-from emotionalBot import views
+
 from emotionalBot.views import ViewApp
 app_name = "chat"
 
