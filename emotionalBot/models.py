@@ -18,6 +18,7 @@ class Statement(models.Model):
     search_text = models.CharField(max_length=255)
     #tags = models.JSONField(encoder=DjangoJSONEncoder)  # Use DjangoJSONEncoder
     text = models.TextField()
+    feedback = models.CharField(max_length=50)
 
     class Meta:
         db_table = 'statements'

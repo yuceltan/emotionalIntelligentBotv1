@@ -14,6 +14,7 @@ from distutils.command.config import config
 from pathlib import Path
 from decouple import config
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.views import static
 
@@ -102,9 +103,10 @@ CHATTERBOT = {
     'database_uri': 'mongodb://localhost:27017/emotionalData',
     'name': 'EmotionalIntelligent',  # name of the bot is defined on this line
     'logic_adapters': [
-        'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch'  # match algorithm
+           'chatterbot.logic.MathematicalEvaluation',
+            'chatterbot.logic.BestMatch',
+            'chatterbot.logic.UnitConversion',
+            'chatterbot.logic.TimeLogicAdapter'
     ]
 }
 
