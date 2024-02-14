@@ -22,8 +22,6 @@ def main():
 
 if __name__ == '__main__':
     os.environ.setdefault("DJANGO_SETTINGS_MODULE","emotionalIntelligentBotv1.settings")
-    # environ is a kind of mapping object, also it can be represented by user's general environmental variable or variables.
     from django.core.management import execute_from_command_line
-    #execute the application from command line, we can import django.core.management package to done this processes.
     execute_from_command_line(sys.argv)
 

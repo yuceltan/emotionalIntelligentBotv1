@@ -16,7 +16,7 @@ class Statement(models.Model):
     persona = models.CharField(max_length=255)
     search_in_response_to = models.CharField(max_length=255)
     search_text = models.CharField(max_length=255)
-    #tags = models.JSONField(encoder=DjangoJSONEncoder)  # Use DjangoJSONEncoder
+    #tags = models.JSONField(encoder=DjangoJSONEncoder)
     text = models.TextField()
     feedback = models.CharField(max_length=50)
 

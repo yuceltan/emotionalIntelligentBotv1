@@ -1,49 +1,33 @@
 from django.core.management.base import BaseCommand
 from chatterbot import ChatBot
-from chatterbot.trainers import ChatterBotCorpusTrainer, ListTrainer
-from chatterbot.ext.django_chatterbot import settings
-from convokit import Corpus, download
-from datasets import load_dataset
-
-from emotionalBot.models import Statement
-
-
+from chatterbot.trainers import ListTrainer
+import csv
+import os
 
 class Command(BaseCommand):
-    help = "Train ChatterBot with corpus data and user feedback from MongoDB via Django model"
+    help = "Train ChatterBot with the Ubuntu Dialogue Corpus dataset"
 
     def handle(self, *args, **options):
-        bot = ChatBot('Emotional Intelligent Bot')
 
-        training_data = Statement.objects.all()
+        chatbot = ChatBot('UbuntuBot')
 
-        trainer = ListTrainer(bot)
-        for statement in training_data:
-            user_input = statement.in_response_to
-            bot_response = statement.text
-            feedback = statement.feedback
-            trainer.train([f"{user_input}\t{bot_response}\t{feedback}"])
+        dataset_dir = r'C:\Users\yucel\Downloads\archive (6)\Ubuntu-dialogue-corpus'
 
-        print("Bot training completed.")
+        if not os.path.isdir(dataset_dir):
+            self.stdout.write(self.style.WARNING(f"Directory '{dataset_dir}' does not exist"))
+            return
 
-        print("Bot is ready. You can start interacting.")
-        while True:
-            user_input = input("You: ")
-            bot_response = bot.get_response(user_input)
-            print("Bot:", bot_response)
-            feedback = input("Was this response helpful? (yes/no): ")
 
-            statement = Statement.objects.create(
-                in_response_to=user_input,
-                text=bot_response,
-                feedback=feedback
-            )
-            statement.save()
+        for filename in os.listdir(dataset_dir):
+            if filename.endswith('.csv'):
+                file_path = os.path.join(dataset_dir, filename)
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    reader = csv.DictReader(file)
+                    dialogue = []
+                    for row in reader:
+                        text = row['text'].strip('"')
+                        dialogue.append(text)
+                    trainer = ListTrainer(chatbot)
+                    trainer.train(dialogue)
 
-            if feedback.lower() == 'no':
-                updated_training_data = Statement.objects.all()
-                updated_chats = [
-                    f"{data.in_response_to}\t{data.text}\t{data.feedback}"
-                    for data in updated_training_data
-                ]
-                trainer.train(updated_chats)
+        self.stdout.write(self.style.SUCCESS("ChatterBot trained with Ubuntu Dialogue Corpus dataset"))
