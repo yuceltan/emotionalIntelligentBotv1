@@ -1,27 +1,60 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from django.http import HttpRequest
-from django.http import JsonResponse
-from chatterbot import ChatBot
-from django.http import HttpResponse
+from django.http import HttpRequest, JsonResponse, HttpResponse
 from django.views.generic import View, TemplateView
 from django.core.serializers import serialize
-from chatterbot.ext.django_chatterbot import settings
+from django import forms
+from django.contrib.auth import authenticate, login, logout
+
+from chatterbot import ChatBot
 from requests import request
 import response
-#from emotionalBot.models import Statement
+from django.contrib.auth.models import User
 
-"""from models import TrainData""" #old name of the training data without corpus
+class Registration(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password1', 'password2']
 
-import json
-
-
-
-
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
 
 class ViewApp(TemplateView):
-    template_name = 'chat.html'
+    template_name = 'index.html'
 
+def home(request):
+    return render(request, 'chat.html')
 
+def bot_register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
+
+def bot_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            nameUser = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=nameUser, password=password)
+            if user:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
+
+def bot_logout(request):
+    logout(request)
+    return redirect('login')
+
+# Add your other views or classes here...
 
 
 #class Home(View):
