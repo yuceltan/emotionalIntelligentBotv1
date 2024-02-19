@@ -10,7 +10,6 @@ nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
 
-# Test data consisting of input queries and expected responses
 test_data = [
     ("how are you?", "I am on the internet "),
     ("i am sad", "i sometimes feel disheartened when i realise just how far from my own culture i am sadness"),
@@ -22,11 +21,8 @@ test_data = [
 ]
 
 def preprocess_text(text):
-    # Tokenize
     tokens = word_tokenize(text.lower())
-    # Remove stopwords
     tokens = [word for word in tokens if word not in stopwords.words("english")]
-    # Lemmatize
     lemmatizer = WordNetLemmatizer()
     tokens = [lemmatizer.lemmatize(word) for word in tokens]
     return tokens
@@ -47,13 +43,9 @@ def evaluate_accuracy(chatterbot, test_data):
     return accuracy
 
 def similarity(tokens1, tokens2):
-    """
-    Calculate similarity between two sets of tokens using Jaccard similarity.
-    """
-    # Convert token lists to sets
+
     set1 = set(tokens1)
     set2 = set(tokens2)
-    # Compute Jaccard similarity
     intersection = len(set1.intersection(set2))
     union = len(set1.union(set2))
     if union == 0:
@@ -66,7 +58,7 @@ def plot_accuracy_over_time(accuracies):
     plt.xlabel('Training Iteration')
     plt.ylabel('Accuracy (%)')
     plt.title('ChatterBot Accuracy Over Time')
-    plt.savefig('accuracy_graph.png')  # Save the graph to a file
+    plt.savefig('accuracy_graph.png')
     plt.close()
 
 def train_and_evaluate():
@@ -74,7 +66,6 @@ def train_and_evaluate():
     trainer = ChatterBotCorpusTrainer(chatterbot)
     trainer.train('chatterbot.corpus.english')
 
-    # Evaluate accuracy after each iteration
     num_iterations = 10
     accuracies = []
     for i in range(num_iterations):
@@ -82,7 +73,6 @@ def train_and_evaluate():
         accuracies.append(accuracy)
         print(f"Iteration {i+1} Accuracy: {accuracy:.2f}%")
 
-    # Plot accuracy over time
     plot_accuracy_over_time(accuracies)
 
 if __name__ == "__main__":

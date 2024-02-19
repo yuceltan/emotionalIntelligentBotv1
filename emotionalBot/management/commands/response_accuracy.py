@@ -1,57 +1,52 @@
-import matplotlib.pyplot as plt
+import random
 from chatterbot import ChatBot
-from chatterbot.trainers import ListTrainer
-import pandas as pd
-from django.core.management.base import BaseCommand
+import matplotlib.pyplot as plt
 
-def calculate_accuracy(chatbot, test_data):
-    correct = 0
-    accuracy_values = []
+def evaluate_accuracy(chatterbot, test_data):
+    correct_responses = 0
+    total_responses = len(test_data)
 
     for query, expected_response in test_data:
-        bot_response = chatbot.get_response(query).text
-        if bot_response == expected_response:
-            correct += 1
-        accuracy = correct / len(test_data) * 100
-        accuracy_values.append(accuracy)
+        response = chatterbot.get_response(query)
+        if response.text == expected_response:
+            correct_responses += 1
 
-    return accuracy_values
+    accuracy = (correct_responses / total_responses) * 100
+    return accuracy
 
-class Command(BaseCommand):
-    help = "Train ChatterBot with corpus data"
+def plot_accuracy_over_time(accuracies):
+    plt.plot(range(1, len(accuracies) + 1), accuracies)
+    plt.xlabel('Training Iteration')
+    plt.ylabel('Accuracy (%)')
+    plt.title('ChatterBot Accuracy Over Time')
+    plt.grid(True)
+    plt.savefig('accuracy_graph.png')  # Save the graph to a file
+    plt.show()
 
-    def handle(self, *args, **options):
-        df = pd.read_csv(
-            r'C:\Users\yucel\Documents\MY PROJECTS\emotionalIntelligentBotv1\emotionalBot\Datasets\Conversation.csv')
+def train_and_evaluate():
+    chatterbot = ChatBot('MyChatBot')
 
-        conversations = []
-        for index, row in df.iterrows():
-            question = row['question']
-            answer = row['answer']
-            conversation = f"{question} {answer}"  # Concatenate question and answer
-            conversations.append(conversation)
+    # Test data consisting of input queries and expected responses
+    test_data = [
+        ("how are you?", "I am on the internet "),
+        ("i am sad", "i sometimes feel disheartened when i realise just how far from my own culture i am sadness"),
+        ("What is your name", "My name is E.S.I.B.A"),
+        ("I am in love",
+         "i out of all people really dont have many proplems talking about how i feel that being said i am in love so after all i have bitched about the last months was in vain sadness"),
+        ("I feel romantic", "i feel romantic too love"),
+        ("what school do you go to?", 'i ve been good. i m in school right now. what school do you go to?'),
+    ]
 
-        chatterbot = ChatBot("E.S.I.B.A")
+    num_iterations = 10
+    accuracies = []
+    for i in range(num_iterations):
+        random.shuffle(test_data)
+        accuracy = evaluate_accuracy(chatterbot, test_data)
+        accuracies.append(accuracy)
+        print(f"Iteration {i + 1} Accuracy: {accuracy:.2f}%")
 
-        trainer = ListTrainer(chatterbot)
-        trainer.train(conversations)
+    # Plot accuracy over time
+    plot_accuracy_over_time(accuracies)
 
-        test_data = [
-            ("how are you?", "I am on the internet "),
-            ("i am sad", "i sometimes feel disheartened when i realise just how far from my own culture i am sadness"),
-            ("What is your name", "My name is E.S.I.B.A"),
-            ("I am in love","i out of all people really dont have many proplems talking about how i feel that being said i am in love so after all i have bitched about the last months was in vain sadness"),
-            ("I feel romantic", "i feel romantic too love"),
-            ("what school do you go to?", 'i ve been good. i m in school right now. what school do you go to?'),
-        ]
-
-        accuracy_values = calculate_accuracy(chatterbot, test_data)
-
-        plt.plot(accuracy_values)
-        plt.title('ChatterBot Response Accuracy Over Time')
-        plt.xlabel('Number of Queries')
-        plt.ylabel('Accuracy (%)')
-        plt.grid(True)
-        plt.show()
-
-        self.stdout.write(self.style.SUCCESS("ChatterBot trained with corpus data"))
+if __name__ == "__main__":
+    train_and_evaluate()
