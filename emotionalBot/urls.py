@@ -14,7 +14,7 @@ urlpatterns = [path('',ViewApp.as_view(),name='chat_view'),
                path('register/',views.bot_register, name = 'register'),
                 path('logout/',views.bot_logout, name = 'logout'),
                path('home/', views.home, name='home'),
-
+               path('benefits/', views.benefits, name='benefits'),
                ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>About Emotional Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+        .navbar {
+            background-color: #090e1d;
+            padding: 0.5rem 2rem;
+            color: #fff;
+            font-size: 14px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        nav ul {
+            display: flex;
+            gap: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #8d4bff;
+        }
+
+        .catalog-item {
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        .catalog-item:hover {
+            transform: scale(1.05);
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .catalog-item:hover .overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-200">
+    <header class="bg-gray-900 text-white py-2 navbar">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="../static/media/E.S.I.B.A.png" alt="ESIBA Logo" class="logo">
+            <nav>
+                <ul>
+                     <li><a href="http://127.0.0.1:8000/"class="text-white">Home</a></li>
+                <li><a href="{% url 'benefits' %}"class="text-white">About</a></li>
+                <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                <li><a href="{% url 'register' %}" class="text-white">Register</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/" class="text-white">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="container mx-auto mt-8 grid grid-cols-2 md:grid-cols-5 gap-4">
+
+        <div class="relative catalog-item">
+            <img src="../static/media/Availability.jpg" alt="24/7 Availability" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">24/7 Availability</p>
+                    <p>Our chatbot is available round the clock to provide support.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Confidentiality.jpg" alt="Confidentiality" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Confidentiality</p>
+                    <p>You can freely express yourself without worrying about judgment.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Empathy.jpg" alt="Empathy" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Empathy</p>
+                    <p>Our chatbot responds with empathy, offering emotional support.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Convenience.jpg" alt="Convenience" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Convenience</p>
+                    <p>Access emotional support anytime, anywhere, without appointments.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Experience.jpg" alt="Personalized Experience" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Personalized Experience</p>
+                    <p>Tailored responses to suit your emotional needs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Anonymity.jpg" alt="Anonymity" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Anonymity</p>
+                    <p>Feel comfortable sharing your feelings without revealing your identity.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Community.jpg" alt="Supportive Community" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Supportive Community</p>
+                    <p>Connect with others facing similar challenges in our supportive community.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Insights.jpg" alt="Emotional Insights" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Emotional Insights</p>
+                    <p>Gain insights into your emotions and coping strategies through conversation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative catalog-item">
+            <img src="../static/media/Language.jpg" alt="Language Support" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Language Support</p>
+                    <p>Available in multiple languages to reach a diverse audience.</p>
+                </div>
+            </div>
+        </div>
+        <div class="relative catalog-item">
+            <img src="../static/media/Improvement.jpg" alt="Growth and Improvement" class="rounded-lg">
+            <div class="overlay">
+                <div class="text-center">
+                    <p class="text-lg font-semibold mb-2">Growth and Improvement</p>
+                    <p>Continuously evolving to provide better support and user experience.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="bg-gray-900 text-white text-center py-2 mt-8">
+        <p>&copy; 2024 Emotional Chatbot. All rights reserved.</p>
+    </footer>
+</body>
+</html>

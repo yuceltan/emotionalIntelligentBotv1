@@ -18,14 +18,14 @@ class ViewTests(TestCase):
         response = self.client.get(reverse('login'))
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.post(reverse('login'), {'username': 'testuser', 'password': 'testpassword'})
+        response = self.client.post(reverse('login'), {'username': 'yuceltan', 'password': 'yuceltan'})
         self.assertEqual(response.status_code, 302)
 
     def test_bot_register(self):
         response = self.client.get(reverse('register'))
         self.assertEqual(response.status_code, 200)
 
-        response = self.client.post(reverse('register'), {'username': 'newuser', 'password1': 'newpassword', 'password2': 'newpassword'})
+        response = self.client.post(reverse('register'), {'username': 'testuser', 'password1': 'newpassword', 'password2': 'newpassword'})
         self.assertEqual(response.status_code, 302)
 
     def test_bot_logout(self):
@@ -59,7 +59,6 @@ class TestUserConsumer(unittest.TestCase):
 
 class TestGetDBHandle(unittest.TestCase):
     def test_get_db_handle(self):
-        # Define test database parameters
         db_name = "test_db"
         host = "localhost"
         port = "27017"

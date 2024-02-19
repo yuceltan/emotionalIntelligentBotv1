@@ -1,46 +1,89 @@
-import matplotlib.pyplot as plt
 from chatterbot import ChatBot
 from chatterbot.trainers import ChatterBotCorpusTrainer
-from chatterbot.response_selection import get_most_frequent_response
-from django.core.management.base import BaseCommand
+import matplotlib.pyplot as plt
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 
-def calculate_accuracy(chatbot, test_data):
-    correct = 0
-    accuracy_values = []
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+# Test data consisting of input queries and expected responses
+test_data = [
+    ("how are you?", "I am on the internet "),
+    ("i am sad", "i sometimes feel disheartened when i realise just how far from my own culture i am sadness"),
+    ("What is your name", "My name is E.S.I.B.A"),
+    ("I am in love",
+     "i out of all people really dont have many proplems talking about how i feel that being said i am in love so after all i have bitched about the last months was in vain sadness"),
+    ("I feel romantic", "i feel romantic too love"),
+    ("what school do you go to?", 'i ve been good. i m in school right now. what school do you go to?'),
+]
+
+def preprocess_text(text):
+    # Tokenize
+    tokens = word_tokenize(text.lower())
+    # Remove stopwords
+    tokens = [word for word in tokens if word not in stopwords.words("english")]
+    # Lemmatize
+    lemmatizer = WordNetLemmatizer()
+    tokens = [lemmatizer.lemmatize(word) for word in tokens]
+    return tokens
+
+def evaluate_accuracy(chatterbot, test_data):
+    correct_responses = 0
+    total_responses = len(test_data)
 
     for query, expected_response in test_data:
-        bot_response = chatbot.get_response(query)
-        if bot_response.text == expected_response:
-            correct += 1
-        accuracy = correct / len(test_data) * 100
-        accuracy_values.append(accuracy)
+        response = chatterbot.get_response(query)
+        print(f"Query: {query}")
+        print(f"Expected Response: {expected_response}")
+        print(f"Actual Response: {response.text}")
+        if similarity(preprocess_text(response.text), preprocess_text(expected_response)) > 0.8:
+            correct_responses += 1
 
-    return accuracy_values
+    accuracy = (correct_responses / total_responses) * 100
+    return accuracy
 
-class Command(BaseCommand):
-    help = "Train ChatterBot with corpus data"
+def similarity(tokens1, tokens2):
+    """
+    Calculate similarity between two sets of tokens using Jaccard similarity.
+    """
+    # Convert token lists to sets
+    set1 = set(tokens1)
+    set2 = set(tokens2)
+    # Compute Jaccard similarity
+    intersection = len(set1.intersection(set2))
+    union = len(set1.union(set2))
+    if union == 0:
+        return 0
+    else:
+        return intersection / union
 
-    def handle(self, *args, **options):
-        chatterbot = ChatBot("E.S.I.B.A", response_selection_method=get_most_frequent_response)
-        trainer = ChatterBotCorpusTrainer(chatterbot)
-        trainer.train("chatterbot.corpus.english")
+def plot_accuracy_over_time(accuracies):
+    plt.plot(range(1, len(accuracies) + 1), accuracies)
+    plt.xlabel('Training Iteration')
+    plt.ylabel('Accuracy (%)')
+    plt.title('ChatterBot Accuracy Over Time')
+    plt.savefig('accuracy_graph.png')  # Save the graph to a file
+    plt.close()
 
-        test_data = [
-            ("how are you?", "I am on the internet "),
-            ("i am sad", "i sometimes feel disheartened when i realise just how far from my own culture i am sadness"),
-            ("What is your name", "My name is E.S.I.B.A"),
-            ("I am in love","i out of all people really dont have many proplems talking about how i feel that being said i am in love so after all i have bitched about the last months was in vain sadness"),
-            ("I feel romantic", "i feel romantic too love"),
-            ("what school do you go to?", 'i ve been good. i m in school right now. what school do you go to?'),
-        ]
+def train_and_evaluate():
+    chatterbot = ChatBot('MyChatBot')
+    trainer = ChatterBotCorpusTrainer(chatterbot)
+    trainer.train('chatterbot.corpus.english')
 
-        accuracy_values = calculate_accuracy(chatterbot, test_data)
+    # Evaluate accuracy after each iteration
+    num_iterations = 10
+    accuracies = []
+    for i in range(num_iterations):
+        accuracy = evaluate_accuracy(chatterbot, test_data)
+        accuracies.append(accuracy)
+        print(f"Iteration {i+1} Accuracy: {accuracy:.2f}%")
 
-        plt.plot(accuracy_values)
-        plt.title('ChatterBot Response Accuracy Over Time')
-        plt.xlabel('Number of Queries')
-        plt.ylabel('Accuracy (%)')
-        plt.grid(True)
-        plt.show()
+    # Plot accuracy over time
+    plot_accuracy_over_time(accuracies)
 
-        self.stdout.write(self.style.SUCCESS("ChatterBot trained with corpus data"))
+if __name__ == "__main__":
+    train_and_evaluate()

@@ -1,19 +1,164 @@
-{% comment %} theme/templates/base.html {% endcomment %}
-<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-
-{% load static tailwind_tags %}
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>{% block title %}Django Chatbot{% endblock %}</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome to E.S.I.B.A{% endblock %}</title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    {% load static %}
     {% tailwind_css %}
-  </head>
+    <style>
+        body {
+            background: linear-gradient(45deg, #8c00ff, #ff0000, #ff8c00, #00ff00, #00ffff, #0000ff, #8c00ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            margin: 0;
+        }
 
-  <body>
-    {% block body %} {% endblock %}
-  </body>
-  {% block scripts%}{% endblock %}
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .logo {
+            max-width: 140px;
+            height: auto;
+        }
+
+        .navbar {
+            background-color: rgb(17, 24, 39);
+            color: #fff;
+            padding: 0.5rem 2rem;
+            font-size: 14px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1000;
+        }
+        .navbar a {
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            color: #007bff;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 200px;
+            background-color: #1a202c;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            z-index: 999;
+            overflow-y: auto;
+            margin-bottom: 60px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .user-info p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .user-info a {
+            color: #8c00ff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .user-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .user-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        main {
+            margin-left: 200px;
+            margin-top: 80px;
+            padding-bottom: 60px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="user-photo">
+        <img src="{% static 'media/photo.png' %}" alt="User Photo">
+    </div>
+    <div class="user-info">
+        <p>User: {{ request.user.username }}</p>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+<header>
+    <div class="navbar">
+        <img src="{% static '/media/E.S.I.B.A.png' %}" alt="ESIBA Logo" class="logo ml-4">
+        <nav>
+            <ul class="flex gap-4">
+                 <li><a href="http://127.0.0.1:8000/"class="text-white">Home</a></li>
+                <li><a href="{% url 'benefits' %}"class="text-white">About</a></li>
+                <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                <li><a href="{% url 'register' %}" class="text-white">Register</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/" class="text-white">Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    {% block body %}{% endblock %}
+</main>
+<footer>
+    <p>&copy; 2024 E.S.I.B.A. All rights reserved.</p>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
 </html>

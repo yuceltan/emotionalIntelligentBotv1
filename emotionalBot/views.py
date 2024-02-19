@@ -23,6 +23,8 @@ class LoginForm(forms.Form):
 class ViewApp(TemplateView):
     template_name = 'index.html'
 
+def benefits(request):
+    return render(request, 'benefits.html')
 def home(request):
     return render(request, 'chat.html')
 
@@ -54,7 +56,7 @@ def bot_logout(request):
     logout(request)
     return redirect('login')
 
-# Add your other views or classes here...
+
 
 
 #class Home(View):

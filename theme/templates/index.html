@@ -1,9 +1,109 @@
-{% if request.user.is_authenticated %}
-  <p>{{ request.user.username }}</p>
-  <a href="{% url 'logout' %}">Logout</a>
-{% else %}
-  <a href="{% url 'login' %}">Login</a>
-  <a href="{% url 'register' %}">Signup</a>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E.S.I.B.A</title>
 
-<h1>Welcome!</h1>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="../static/css/dist/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-8/szm2VqywA37SYYpVUCCyS2crY4uCIl3fhu9JPThbKlo5/c3PnKdGU0QzzolpZ9oCQ4Kz6iTGj36ENe6yqlww==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        #typing-text {
+            visibility: hidden;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+        }
+
+        nav {
+            height: 60px;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .btn {
+            color: #fff;
+            font-weight: bold;
+            padding: 30px 60px;
+            border: 4px solid #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #4a90e2;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center h-full">
+            <img src="../static/media/E.S.I.B.A.png" alt="ESIBA Logo" class="logo"> <!-- Adjusted width and height -->
+            <ul class="flex space-x-4">
+                <li><a href="http://127.0.0.1:8000/"class="text-white">Home</a></li>
+                <li><a href="{% url 'benefits' %}"class="text-white">About</a></li>
+                <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                <li><a href="{% url 'register' %}" class="text-white">Register</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/" class="text-white">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="relative w-full h-screen">
+        <video class="absolute top-0 left-0 w-full h-full object-cover" autoplay loop muted>
+            <source src="../static/media/esiba.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class='console-container flex items-center justify-center text-white absolute inset-0'>
+            <span id='text'></span><div class='console-underscore' id='console'>&#95;</div>
+        </div>
+        <div class="content flex flex-col items-center justify-center absolute inset-0 text-white">
+            <div class="btn-container">
+                <a href="{% url 'register' %}" class="btn">Register</a>
+            </div>
+        </div>
+        <div class="third-page"></div>
+
+        <div class="absolute top-1/4 left-1/2 transform -translate-x-1/2 mt-20 text-center">
+            <p id="typing-text" class="text-white text-2xl font-bold"></p>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 text-white text-center py-4 mt-8">
+        <p>&copy; 2024 E.S.I.B.A. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.tailwindcss.com/"></script>
+    <script>
+        const typingText = document.getElementById('typing-text');
+        const texts = ["Hi, ", "I am ", "E.S.I.B.A. ", "I am your ", "Emotional ", "Support"];
+        let index = 0;
+        let textIndex = 0;
+
+        function typeWriter() {
+            if (index < texts[textIndex].length) {
+                typingText.textContent += texts[textIndex].charAt(index);
+                index++;
+                setTimeout(typeWriter, 200);
+            } else {
+                index = 0;
+                textIndex = (textIndex + 1) % texts.length;
+                typingText.textContent = "";
+                setTimeout(typeWriter, 1000);
+            }
+        }
+
+        typingText.style.visibility = 'visible';
+        typeWriter();
+    </script>
+</body>
+</html>

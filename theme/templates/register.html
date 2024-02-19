@@ -1,7 +1,106 @@
-<h1>Signup</h1>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Signup</button>
-    <a href="{% url 'login' %}">Already have account?</a>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup - E.S.I.B.A</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            background-color: #090e1d;
+        }
+        .logo {
+            width: 150px;
+            height: auto;
+        }
+        .navbar {
+            background-color: rgb(17, 24, 39);
+            color: #fff;
+            padding: 0.5rem 2rem;
+            font-size: 14px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar a {
+            text-decoration: none;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            color: #007bff;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .form-field {
+            padding: 12px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+        }
+        .signup-button {
+            background-color: #4a90e2;
+            color: #fff;
+            font-weight: bold;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .signup-button:hover {
+            background-color: #007bff;
+        }
+        .login-link {
+            color: #4a90e2;
+            transition: color 0.3s ease;
+        }
+        .login-link:hover {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+    <div class="navbar">
+        <img src="../static/media/E.S.I.B.A.png" alt="ESIBA Logo" class="logo ml-4">
+        <nav>
+            <ul class="flex gap-4">
+                <li><a href="http://127.0.0.1:8000/"class="text-white">Home</a></li>
+                <li><a href="{% url 'benefits' %}"class="text-white">About</a></li>
+                <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+                <li><a href="{% url 'register' %}" class="text-white">Register</a></li>
+                <li><a href="http://127.0.0.1:8000/admin/" class="text-white">Admin</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="min-h-screen flex flex-col items-center justify-center">
+        <div class="card">
+            <h1 class="text-3xl font-bold text-center mb-4">Signup</h1>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="username" class="form-field" placeholder="Username" required>
+                <input type="email" name="email" class="form-field" placeholder="Email" required>
+                <input type="password" name="password1" class="form-field" placeholder="Password" required>
+                <input type="password" name="password2" class="form-field" placeholder="Confirm Password" required>
+                <button type="submit" class="signup-button transition duration-300 ease-in-out transform hover:scale-105">Signup</button>
+                <a href="{% url 'login' %}" class="block text-center mt-4 login-link hover:underline">Already have an account? Login</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
